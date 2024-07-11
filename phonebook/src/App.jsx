@@ -53,7 +53,7 @@ const App = () =>{
       .then(updatedData => {
         setPersons(persons.map(person => person.id !== idToUpdate ? person : updatedData))})
       .catch((error)=>{
-        SetErrorMessage(`${newItem.name} has already been removed from server`)
+        SetErrorMessage(error.response.data.error)
        
         setTimeout(()=>SetErrorMessage(null),5000)
         setPersons(persons.filter(person => person.id !== idToUpdate))
@@ -68,6 +68,11 @@ const App = () =>{
     setNewNumber("")
     SetErrorMessage(`Added ${newItem.name}`)
     setTimeout(()=>SetErrorMessage(null),5000)
+    })
+    .catch((error)=>{
+      SetErrorMessage(error.response.data.error)
+       
+      setTimeout(()=>SetErrorMessage(null),5000)
     })
     
   }
